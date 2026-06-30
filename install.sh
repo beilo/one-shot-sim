@@ -36,7 +36,8 @@ clone_to_target() {
 
   local tmp
   tmp="$(mktemp -d)"
-  trap 'rm -rf "$tmp"' EXIT
+  ONE_SHOT_SIM_TMP="$tmp"
+  trap 'rm -rf "${ONE_SHOT_SIM_TMP:-}"' EXIT
 
   log "下载 one-shot-sim：$REPO_URL"
   git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$tmp/repo" >/dev/null
